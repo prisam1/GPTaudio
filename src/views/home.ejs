@@ -1,0 +1,118 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<style>
+
+body{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	background:#0ea4da;
+	color: #000;
+	
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.voicetxt{
+  width: 80rem;
+  text-align: center;
+}
+h1{
+	color: #fff;
+	font-size: 50px;
+}
+#convert_text{
+  width: 100%;
+  height: 20rem;
+  border-radius: 5px;
+  resize: none;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+button{
+	padding: 1rem 2rem;
+  background: #46f35d;
+  border: 0;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  
+}
+.btn{
+  margin: 10px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+</style>
+<body>
+
+	<div class="voicetxt"> 
+		<h1>GPT Audio Web App</h1>
+    <form  action="/response" method="POST">
+      <textarea name="transcript" id="convert_text"></textarea>
+      <div class="btn">
+        
+        <button type="submit">Process with GPT</button>
+    </div>
+    </form>
+    <button id="record">Say</button>
+  </div>
+
+<script>
+    record.addEventListener('click',function(){
+    var speech = true;
+    window.SpeechRecognition = window.webkitSpeechRecognition;
+
+    const recognition = new SpeechRecognition()
+    recognition.interimResults = true
+
+    recognition.addEventListener('result', e => {
+        const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join('')
+
+        document.getElementById("convert_text").innerHTML = transcript;
+       
+    })
+    
+    if (speech == true) {
+        recognition.start();
+    }
+})
+document.getElementById('transcriptForm').addEventListener('submit', function (e) {
+    e.preventDefault()
+
+    const transcript = document.getElementById('convert_text').value;
+
+    fetch(this.action, {
+      method: this.method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ transcript })
+    })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  })
+  
+</script>
+</body>
+</html>
