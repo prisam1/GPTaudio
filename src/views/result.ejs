@@ -92,62 +92,61 @@ body{
 
 
 <script>
-    var convert = document.getElementById('convert'),
+
+var convert = document.getElementById('convert'),
 voiceIco = document.getElementById('voiceIco'),
 speech  = document.getElementById('inputText'),
 p = document.getElementById('res');
 
 var BackButton = document.getElementById('BackButton');
 BackButton.addEventListener('click', function() {
-    inputText.value = '';          
-    resParagraph.innerHTML = ''; 
+    inputText.value = ''
+    resParagraph.innerHTML = ''
   });
 
 count = 1;
 
-speech.value = p.innerHTML;
+speech.value = p.innerHTML
 speech.addEventListener('change',function(){
-  speechText = this.value;
-  speechSynthesis.cancel();
-  convert.innerHTML = "Play Again";
- 
-});
+  speechText = this.value
+  speechSynthesis.cancel()
+  convert.innerHTML = "Get voice result"
+})
 
 convert.addEventListener('click',function(){
   if(!speechSynthesis.speaking || speechSynthesis.pause()){
-    speechText = speech.value;
-    var speechVoice = new SpeechSynthesisUtterance();
-    var voices = speechSynthesis.getVoices();
-    speechVoice.voice = voices[2];
-    speechVoice.text = speechText;
-    speechVoice.lang = 'en-US';
-    speechSynthesis.speak(speechVoice);  
+    speechText = speech.value
+    var speechVoice = new SpeechSynthesisUtterance()
+    var voices = speechSynthesis.getVoices()
+    speechVoice.voice = voices[2]
+    speechVoice.text = speechText
+    speechVoice.lang = 'en-US'
+    speechSynthesis.speak(speechVoice)
   }
 
 if(count == 1){
-  convert.innerHTML = "Play";
+  convert.innerHTML = "Play"
   speechSynthesis.resume()
   setTimeout(() => {
-    count = 2;
-  }, 300);
+    count = 2
+  }, 300)
   
 }else{
   speechSynthesis.paused
-  convert.innerHTML = "Pause";
-  count = 1;
+  convert.innerHTML = "Pause"
+  count = 1
 
 }
 setInterval(() => {
   if(!speechSynthesis.speaking && count == 2){
-    convert.innerHTML = "Play Again";
-    count = 1;
+    convert.innerHTML = "Get voice result"
+    count = 1
     console.log(count)
   }
-},100);
+},100)
 
 
 })
-
 </script>
 </body>
 </html>
