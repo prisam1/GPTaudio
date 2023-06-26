@@ -2,11 +2,10 @@
 const express = require('express')
 const app = express()
 const {OpenAIApi, Configuration} = require('openai')
-
+require('dotenv').config()
 const bodyParser = require('body-parser')
  const configuration = new Configuration({
-  organization: 'org-GBMaHI2JjIbYo0ffAWLmfgiT',
-  apiKey: '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'
+  apiKey:  process.env.OPENAI_API_KEY,
 })
 
 
@@ -43,7 +42,7 @@ const processText = async (text) => {
       
   }
 }
- 
+  
  const port =5000
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
