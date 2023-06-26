@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
  const configuration = new Configuration({
   apiKey:  process.env.OPENAI_API_KEY,
 })
-
+ 
 
   
 app.use(bodyParser.urlencoded({ extended: false }))
