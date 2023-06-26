@@ -6,7 +6,7 @@ const {OpenAIApi, Configuration} = require('openai')
 const bodyParser = require('body-parser')
  const configuration = new Configuration({
   organization: 'org-GBMaHI2JjIbYo0ffAWLmfgiT',
-  apiKey: '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'
+  apiKey: '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'
 })
 
 
@@ -18,7 +18,7 @@ app.get('/',(req,res)=>{
 
   res.render('home.ejs')
 })
-
+ 
 app.post('/response',async (req, res) => {
 
   const  transcript  = req.body.transcript
